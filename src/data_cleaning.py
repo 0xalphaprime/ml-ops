@@ -44,4 +44,29 @@ class DataPreProcessStrategy(DataStrategy):
         
 class DataSplitStrategy(DataStrategy):
     # class for splitting our data
-    pass
+    def handle_data(self, df: pd.DataFrame) -> Union[pd.DataFrame, pd.Series]:
+        # split data into train and test
+        try:
+            X = df.drop("review_score", axis=1)
+            y = df["review_score"]
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            return X_train, X_test, y_train, y_test
+        except Exception as e:
+            logging.error(e)
+            raise e
+
+class DataCleaning:
+    # class for cleaning data
+    def __init__(self, df: pd.DataFrame, strategy: DataStrategy) -> None:
+        # initialize the DataCleaning class with a specified strategy, utilizing an abstract class DataStrategy
+        self.df = df
+        self.data_strategy = strategy
+
+    def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
+        # handle data
+        try:
+            return self.strategy.handle_data(self.df)
+        except Exception as e:
+            logging.error("Error in DataCleaning.handle_data")
+            raise e
+        
