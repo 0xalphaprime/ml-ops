@@ -50,3 +50,4 @@ class RMSE(Evaluation):
         except Exception as e:
             logging.error("Error calculating RMSE score: {}".format(e))
             raise e
+        
