@@ -65,7 +65,7 @@ class DataCleaning:
     def handle_data(self) -> Union[pd.DataFrame, pd.Series]:
         # handle data
         try:
-            return self.strategy.handle_data(self.df)
+            return self.data_strategy.handle_data(self.df)
         except Exception as e:
             logging.error("Error in DataCleaning.handle_data")
             raise e

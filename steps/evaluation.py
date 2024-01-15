@@ -12,7 +12,7 @@ from src.evaluation import MSE, R2, RMSE
 @step
 def evaluate_model(model: RegressorMixin,
     X_test: pd.DataFrame,
-    y_test: pd.DataFramw,
+    y_test: pd.DataFrame,
 ) -> Tuple[Annotated[float, 'r2'], Annotated[float, 'rmse']]:
     
     try:

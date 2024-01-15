@@ -8,6 +8,7 @@ from steps.evaluation import evaluate_model
 @pipeline
 def train_pipeline(path: str):
     df = ingest_df(path)
-    clean_df(df)
-    train_model(df)
-    evaluate_model(df)
+    X_train, X_test, y_train, y_test = clean_df(df)
+    model = train_model(X_train, X_test, y_train, y_test)
+    r2, rmse = evaluate_model(model, X_test, y_test)
+    

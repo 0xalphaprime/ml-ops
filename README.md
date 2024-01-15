@@ -8,6 +8,38 @@
 
 - 010723 ran into some issues with getting the dependencies downloaded and my envirornment (conda) correct. The error ended up being that I had python 3.12, which some of the versions of the dependencies did not support. I downgraded to 3.11 per ZenML docs and it seems I have all of the necessary dependencies installed.
 
+- 011523 - got the pipeline running, with all component steps built in. 
+
+```bash
+(zenmlops) alphaPrime >> ml-ops $ python run_pipeline.py
+Initiating a new run for the pipeline: train_pipeline.
+The BaseParameters class to define step parameters is deprecated. Check out our docs https://docs.zenml.io/user-guide/advanced-guide/pipelining-features/configure-steps-pipelines for information on how to parameterize your steps. As a quick fix to get rid of this warning, make sure your parameter class inherits from pydantic.BaseModel instead of the BaseParameters class.
+Reusing registered version: (version: 4).
+Executing a new run.
+Using user: default
+Using stack: default
+  artifact_store: default
+  orchestrator: default
+Using cached version of ingest_df.
+Linking artifact output to model None version None implicitly.
+Step ingest_df has started.
+Step clean_df has started.
+Step clean_df has finished in 0.855s.
+Step train_model has started.
+Model training complete!
+Step train_model has finished in 0.195s.
+Step evaluate_model has started.
+Calculating MSE score
+MSE score: 1.864077053397548
+Calculating R2 score
+R2 score: 0.017729030402295565
+Calculating RMSE score
+RMSE score: 1.3653120717980736
+Step evaluate_model has finished in 0.314s.
+Run train_pipeline-2024_01_15-19_00_28_224596 has finished in 1.602s.
+Dashboard URL: http://127.0.0.1:8237/workspaces/default/pipelines/26e446e3-8301-4589-969a-69233c37143e/runs/79df8ebb-68b1-4458-9f12-2bc84e6b9ded/dag
+```
+
 #### LEARNING:
 
 ##### DESIGN PATTERNS:
