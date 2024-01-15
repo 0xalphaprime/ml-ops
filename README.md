@@ -40,6 +40,8 @@ Run train_pipeline-2024_01_15-19_00_28_224596 has finished in 1.602s.
 Dashboard URL: http://127.0.0.1:8237/workspaces/default/pipelines/26e446e3-8301-4589-969a-69233c37143e/runs/79df8ebb-68b1-4458-9f12-2bc84e6b9ded/dag
 ```
 
+![Alt text](static/img/image.png)
+
 #### LEARNING:
 
 ##### DESIGN PATTERNS:
