@@ -3,12 +3,13 @@
 * ### [ML - Learning Tree Link](https://whimsical.com/machine-learning-roadmap-by-ayush-singh-newera-J1EwnqAPUtF77ejgbRc8Hk)
 
 - **[ZenML Docs](https://docs.zenml.io/getting-started/installation)**
+- [MLFlow Docs](https://www.mlflow.org/docs/latest/index.html)
 
 ### Log 
 
-- 010723 ran into some issues with getting the dependencies downloaded and my envirornment (conda) correct. The error ended up being that I had python 3.12, which some of the versions of the dependencies did not support. I downgraded to 3.11 per ZenML docs and it seems I have all of the necessary dependencies installed.
+- 010724 ran into some issues with getting the dependencies downloaded and my envirornment (conda) correct. The error ended up being that I had python 3.12, which some of the versions of the dependencies did not support. I downgraded to 3.11 per ZenML docs and it seems I have all of the necessary dependencies installed.
 
-- 011523 - got the pipeline running, with all component steps built in. 
+- 011524 - got the pipeline running, with all component steps built in. 
 
 ```bash
 (zenmlops) alphaPrime >> ml-ops $ python run_pipeline.py
@@ -39,10 +40,48 @@ Step evaluate_model has finished in 0.314s.
 Run train_pipeline-2024_01_15-19_00_28_224596 has finished in 1.602s.
 Dashboard URL: http://127.0.0.1:8237/workspaces/default/pipelines/26e446e3-8301-4589-969a-69233c37143e/runs/79df8ebb-68b1-4458-9f12-2bc84e6b9ded/dag
 ```
-
 ![Alt text](static/img/image.png)
 
-#### LEARNING:
+- 011524 - mlflow uri 
+
+```bash
+(zenmlops) alphaPrime >> ml-ops $ mlflow ui --backend-store-uri "file:/Users/alphaprime/Library/Application Support/zenml/local_stores/342b8cff-2d41-48f4-aef9-475f7e2999fd/mlruns"
+[2024-01-15 20:09:23 -0500] [21094] [INFO] Starting gunicorn 21.2.0
+[2024-01-15 20:09:23 -0500] [21094] [INFO] Listening at: http://127.0.0.1:5000 (21094)
+[2024-01-15 20:09:23 -0500] [21094] [INFO] Using worker: sync
+[2024-01-15 20:09:23 -0500] [21097] [INFO] Booting worker with pid: 21097
+[2024-01-15 20:09:23 -0500] [21098] [INFO] Booting worker with pid: 21098
+[2024-01-15 20:09:23 -0500] [21099] [INFO] Booting worker with pid: 21099
+[2024-01-15 20:09:23 -0500] [21100] [INFO] Booting worker with pid: 21100
+```
+![Alt text](static/img/image2.png)
+
+#### ZENML:
+
+Starting with ZenML 0.20.0, ZenML comes bundled with a React-based dashboard. This dashboard allows you
+to observe your stacks, stack components and pipeline DAGs in a dashboard interface. To access this, you need to [launch the ZenML Server and Dashboard locally](https://docs.zenml.io/user-guide/starter-guide#explore-the-dashboard), but first you must install the optional dependencies for the ZenML server:
+
+```bash
+pip install zenml["server"]
+zenml up
+```
+
+If you are running the `run_deployment.py` script, you will also need to install some integrations using ZenML:
+
+```bash
+zenml integration install mlflow -y
+```
+
+The project can only be executed with a ZenML stack that has an MLflow experiment tracker and model deployer as a component. Configuring a new stack with the two components are as follows:
+
+```bash
+zenml integration install mlflow -y
+zenml experiment-tracker register mlflow_tracker --flavor=mlflow
+zenml model-deployer register mlflow_customer --flavor=mlflow
+zenml stack register mlflow_stack -a default -o default -d mlflow_customer -e mlflow_tracker_customer --set
+```
+
+#### Learning Notes:
 
 ##### DESIGN PATTERNS:
 
