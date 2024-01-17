@@ -56,6 +56,48 @@ Dashboard URL: http://127.0.0.1:8237/workspaces/default/pipelines/26e446e3-8301-
 ```
 ![Alt text](static/img/image2.png)
 
+- 011724 - deployment
+
+2:32:06 video bookmark
+
+deployed the pipeline
+```bash
+(zenmlops) alphaPrime >> ml-ops $ python run_deployment.py --config deploy
+Initiating a new run for the pipeline: continuous_deployment_pipeline.
+The BaseParameters class to define step parameters is deprecated. Check out our docs https://docs.zenml.io/user-guide/advanced-guide/pipelining-features/configure-steps-pipelines for information on how to parameterize your steps. As a quick fix to get rid of this warning, make sure your parameter class inherits from pydantic.BaseModel instead of the BaseParameters class.
+The BaseParameters class to define step parameters is deprecated. Check out our docs https://docs.zenml.io/user-guide/advanced-guide/pipelining-features/configure-steps-pipelines for information on how to parameterize your steps. As a quick fix to get rid of this warning, make sure your parameter class inherits from pydantic.BaseModel instead of the BaseParameters class.
+Reusing registered version: (version: 1).
+Executing a new run.
+Using user: default
+Using stack: mlflow_stack
+  experiment_tracker: mlflow_tracker
+  artifact_store: default
+  orchestrator: default
+  model_deployer: mlflow_customer
+Using cached version of ingest_df.
+Linking artifact output to model None version None implicitly.
+Step ingest_df has started.
+Using cached version of clean_df.
+Step clean_df has started.
+Using cached version of train_model.
+Linking artifact output to model None version None implicitly.
+Step train_model has started.
+Using cached version of evaluate_model.
+Step evaluate_model has started.
+Step deployment_trigger has started.
+Step deployment_trigger has finished in 0.051s.
+Caching disabled explicitly for mlflow_model_deployer_step.
+Step mlflow_model_deployer_step has started.
+2024/01/17 06:46:03 WARNING mlflow.tracking.fluent: Cannot retrieve experiment by name continuous_deployment_pipeline
+Step mlflow_model_deployer_step has finished in 0.052s.
+Run continuous_deployment_pipeline-2024_01_17-11_46_02_931065 has finished in 0.569s.
+Dashboard URL: http://127.0.0.1:8237/workspaces/default/pipelines/33dae6b7-9045-402a-9f6c-6d8f4d5d954c/runs/26409b09-c463-4c7d-9389-b09bd7a5102c/dag
+You can run:
+    mlflow ui --backend-store-uri file:/Users/alphaprime/Library/Application 
+Support/zenml/local_stores/342b8cff-2d41-48f4-aef9-475f7e2999fd/mlruns
+to inspect your experiment runs within the MLFlow UI.
+.```
+
 #### ZENML:
 
 Starting with ZenML 0.20.0, ZenML comes bundled with a React-based dashboard. This dashboard allows you
