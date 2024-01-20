@@ -6,7 +6,7 @@ from zenml.integrations.mlflow.model_deployers.mlflow_model_deployer import (
     MLFlowModelDeployer,
 )
 from zenml.integrations.mlflow.services import MLFlowDeploymentService
-from pipelines.deployment_pipeline import continuous_deployment_pipeline
+from pipelines.deployment_pipeline import continuous_deployment_pipeline, inference_pipeline
 
 
 DEPLOY = 'deploy'
@@ -28,7 +28,7 @@ DEPLOY_AND_PREDICT = 'deploy_and_predict'
     help='Minimum accuracy to deploy the model'
 )
 
-def run_deployment(config: str, min_accuracy: float):
+def main(config: str, min_accuracy: float):
     mlflow_model_deployer_component = MLFlowModelDeployer.get_active_model_deployer()
     deploy = config == DEPLOY or config == DEPLOY_AND_PREDICT
     predict = config == PREDICT or config == DEPLOY_AND_PREDICT
@@ -40,7 +40,10 @@ def run_deployment(config: str, min_accuracy: float):
             workers=3,
             timeout=60,)
     if predict:
-        inference_pipeline()
+        inference_pipeline(
+            pipeline_name='continuous_deployment_pipeline',
+            pipeline_step_name='mlflow_model_deployer_step',
+        )
 
     
     print(
@@ -80,4 +83,4 @@ def run_deployment(config: str, min_accuracy: float):
             )
 
 if __name__ == '__main__':
-    run_deployment()
+    main()
